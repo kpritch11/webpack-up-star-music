@@ -6,112 +6,92 @@ import { Range } from '../filters';
 import * as actions from '../../actions';
 
 const TEXT_FIELDS = [
-  { label: 'Name', prop: 'name' }
+    { label: 'Name', prop: 'name' }
 ];
 
 class ArtistFilter extends Component {
-  componentWillMount() {
-    if (this.props.filters) {
-      const criteria = _.extend({}, { name: '' }, this.props.filters);
-      this.props.searchArtists(criteria);
-    } else {
-      this.props.searchArtists({
-        name: '',
-        sort: 'name'
-      });
+    componentWillMount() {
+        if (this.props.filters) {
+            const criteria = _.extend({}, { name: '' }, this.props.filters);
+            this.props.searchArtists(criteria);
+        } else {
+            this.props.searchArtists({
+                name: '',
+                sort: 'name'
+            });
+        }
     }
-  }
 
-  componentDidMount() {
-    this.props.setAgeRange();
-    this.props.setYearsActiveRange();
-  }
+    componentDidMount() {
+        this.props.setAgeRange();
+        this.props.setYearsActiveRange();
+    }
 
-  handleSubmit(formProps) {
-    const criteria = _.extend({ name: '' }, formProps);
-    this.props.searchArtists(criteria);
-  }
+    handleSubmit(formProps) {
+        const criteria = _.extend({ name: '' }, formProps);
+        this.props.searchArtists(criteria);
+    }
 
-  renderInputs() {
-    return TEXT_FIELDS.map(({ label, prop }) =>
-      <div className="input-field" key={prop}>
-        <Field
-          placeholder={label}
-          id={prop}
-          name={prop}
-          component="input"
-          type="text"
-        />
-      </div>
-    );
-  }
-
-  render() {
-    const { handleSubmit } = this.props;
-
-    return (
-      <div className="card blue-grey darken-1 row">
-        <div className="card-content white-text">
-          <form onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
-            <div className="center-align card-title">
-              Search
+    renderInputs() {
+        return TEXT_FIELDS.map(({ label, prop }) =>
+            <div className="input-field" key={prop}>
+                <Field placeholder={label} id={prop} name={prop} component="input" type="text" />
             </div>
+        );
+    }
 
-            {this.renderInputs()}
+    render() {
+        const { handleSubmit } = this.props;
 
-            <div className="input-field">
-              <Field
-                id="age"
-                label="Age"
-                component={Range}
-                type="text"
-                name="age"
-                range={this.props.ageRange}
-              />
+        return (
+            <div className="card blue-grey darken-1 row">
+                <div className="card-content white-text">
+                    <form onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
+                        <div className="center-align card-title">
+                            Search
+                        </div>
+
+                        {this.renderInputs()}
+
+                        <div className="input-field">
+                            <Field id="age" label="Age" component={Range} type="text" name="age" range={this.props.ageRange} />
+                        </div>
+
+                        <div className="input-field">
+                            <Field id="years-active" label="Years Active" component={Range} type="text" name="yearsActive" range={this.props.yearsActive} />
+                        </div>
+
+                        <div>
+                            <label className="select" htmlFor="sort">Sort By</label>
+                            <Field id="sort" name="sort" component="select">
+                                <option value="name">Name</option>
+                                <option value="age">Age</option>
+                                <option value="albums">Albums Released</option>
+                            </Field>
+                        </div>
+
+                        <div className="center-align">
+                            <button className="btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div className="input-field">
-              <Field
-                id="years-active"
-                label="Years Active"
-                component={Range}
-                type="text"
-                name="yearsActive"
-                range={this.props.yearsActive}
-              />
-            </div>
-
-            <div>
-              <label className="select" htmlFor="sort">Sort By</label>
-              <Field id="sort" name="sort" component="select">
-                <option value="name">Name</option>
-                <option value="age">Age</option>
-                <option value="albums">Albums Released</option>
-              </Field>
-            </div>
-
-            <div className="center-align">
-              <button className="btn">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
-  const { filterCriteria } = state;
+    const { filterCriteria } = state;
 
-  return {
-    yearsActive: filterCriteria.yearsActive,
-    ageRange: filterCriteria.age,
-    filters: state.form.filters && state.form.filters.values
-  };
+    return {
+        yearsActive: filterCriteria.yearsActive,
+        ageRange: filterCriteria.age,
+        filters: state.form.filters && state.form.filters.values
+    };
 };
 
 export default connect(mapStateToProps, actions)(reduxForm({
-  destroyOnUnmount: false,
-  form: 'filters',
-  initialValues: { sort: 'name' }
+    destroyOnUnmount: false,
+    form: 'filters',
+    initialValues: { sort: 'name' }
 })(ArtistFilter));

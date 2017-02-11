@@ -8,13 +8,13 @@ const db = require('./db');
  * @return {promise} A promise that resolves after the update
  */
 module.exports = (_ids) => {
-  return new Promise((resolve, reject) => {
-    const artists = _.chain(_ids)
-      .map(_id => _.find(db, a => a._id === _id))
-      .compact()
-      .each(a => a.retired = true)
-      .value();
+    return new Promise((resolve, reject) => {
+        const artists = _.chain(_ids)
+        .map(_id => _.find(db, a => a._id === _id))
+        .compact()
+        .each(a => a.retired = true)
+        .value();
 
-    resolve(artists);
-  });
+        resolve(artists);
+    });
 };

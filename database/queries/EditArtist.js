@@ -9,10 +9,10 @@ const db = require('./db');
  * @return {promise} A promise that resolves when the record is edited
  */
 module.exports = (_id, artistProps) => {
-  const artist = _.find(db, a => a._id === _id);
-  _.extend(artist, artistProps);
+    const artist = _.find(db, a => a._id === _id);
+    _.extend(artist, artistProps);
 
-  return new Promise((resolve, reject) => {
-    resolve();
-  });
+    return new Promise((resolve, reject) => {
+        resolve();
+    });
 };

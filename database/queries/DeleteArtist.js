@@ -8,11 +8,11 @@ const db = require('./db');
  * @return {promise} A promise that resolves when the record is deleted
  */
 module.exports = (_id) => {
-  _.each(db, (artist, index) => {
-    if(artist && artist._id === _id) {
-      db.splice(index, 1);
-    }
-  });
+    _.each(db, (artist, index) => {
+        if(artist && artist._id === _id) {
+            db.splice(index, 1);
+        }
+    });
 
-  return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve());
 };

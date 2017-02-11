@@ -3,86 +3,70 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 class ArtistEdit extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {};
-  }
-
-  componentWillMount() {
-    this.props.findArtist(this.props.params.id);
-  }
-
-  componentWillReceiveProps({ artist }) {
-    if (artist) {
-      const { name, age, yearsActive, genre } = artist;
-
-      this.setState({ name, age, yearsActive, genre });
+        this.state = {};
     }
-  }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.params.id !== this.props.params.id) {
-      this.props.findArtist(nextProps.params.id);
+    componentWillMount() {
+        this.props.findArtist(this.props.params.id);
     }
-  }
 
-  componentWillUnmount() {
-    this.props.clearError();
-  }
+    componentWillReceiveProps({ artist }) {
+        if (artist) {
+            const { name, age, yearsActive, genre } = artist;
 
-  onSubmit(event) {
-    event.preventDefault();
-    event.stopPropagation();
+            this.setState({ name, age, yearsActive, genre });
+        }
+    }
 
-    this.props.editArtist(this.props.params.id, this.state);
-  }
+    componentWillUpdate(nextProps) {
+        if (nextProps.params.id !== this.props.params.id) {
+            this.props.findArtist(nextProps.params.id);
+        }
+    }
 
-  render() {
-    return (
-      <form onSubmit={this.onSubmit.bind(this)}>
-        <div className="input-field">
-          <input
-            value={this.state.name}
-            onChange={e => this.setState({ name: e.target.value })}
-            placeholder="Name"
-          />
-        </div>
-        <div className="input-field">
-          <input
-            value={this.state.age}
-            onChange={e => this.setState({ age: e.target.value })}
-            placeholder="Age"
-          />
-        </div>
-        <div className="input-field">
-          <input
-            value={this.state.yearsActive}
-            onChange={e => this.setState({ yearsActive: e.target.value })}
-            placeholder="Years Active"
-          />
-        </div>
-        <div className="input-field">
-          <input
-            value={this.state.genre}
-            onChange={e => this.setState({ genre: e.target.value })}
-            placeholder="Genre"
-          />
-        </div>
-        <div className="has-error">
-          {this.props.errorMessage}
-        </div>
-        <button className="btn">Submit</button>
-      </form>
-    );
-  }
+    componentWillUnmount() {
+        this.props.clearError();
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.props.editArtist(this.props.params.id, this.state);
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.onSubmit.bind(this)}>
+                <div className="input-field">
+                    <input value={this.state.name} onChange={e => this.setState({ name: e.target.value })} placeholder="Name" />
+                </div>
+                <div className="input-field">
+                    <input value={this.state.age} onChange={e => this.setState({ age: e.target.value })} placeholder="Age" />
+                </div>
+                <div className="input-field">
+                    <input value={this.state.yearsActive} onChange={e => this.setState({ yearsActive: e.target.value })} placeholder="Years Active" />
+                </div>
+                <div className="input-field">
+                    <input value={this.state.genre} onChange={e => this.setState({ genre: e.target.value })} placeholder="Genre" />
+                </div>
+                <div className="has-error">
+                    {this.props.errorMessage}
+                </div>
+                <button className="btn">Submit</button>
+            </form>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    artist: state.artists.artist,
-    errorMessage: state.errors
-  };
+    return {
+        artist: state.artists.artist,
+        errorMessage: state.errors
+    };
 };
 
 export default connect(mapStateToProps, actions)(ArtistEdit);

@@ -8,12 +8,12 @@ const db = require('./db');
  * containing the min and max ages, like { min: 16, max: 45 }.
  */
 module.exports = () => {
-  return new Promise((resolve, reject) => {
-    const range = {
-      max: _.maxBy(db, a => a.age).age,
-      min: _.minBy(db, a => a.age).age,
-    };
-    
-    resolve(range);
-  });
+    return new Promise((resolve, reject) => {
+        const range = {
+            max: _.maxBy(db, a => a.age).age,
+            min: _.minBy(db, a => a.age).age,
+        };
+
+        resolve(range);
+    });
 };

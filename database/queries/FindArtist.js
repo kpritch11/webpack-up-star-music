@@ -8,9 +8,9 @@ const db = require('./db');
  * @return {promise} A promise that resolves with the Artist that matches the id
  */
 module.exports = (_id) => {
-  const artist = _.find(db, a => a._id === _id);
+    const artist = _.find(db, a => a._id === _id);
 
-  return new Promise((resolve, reject) => {
-    resolve(artist);
-  });
+    return new Promise((resolve, reject) => {
+        resolve(artist);
+    });
 };

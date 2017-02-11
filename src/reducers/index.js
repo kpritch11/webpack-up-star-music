@@ -6,9 +6,9 @@ import ErrorReducer from './ErrorReducer';
 import SelectionReducer from './SelectionReducer';
 
 export default combineReducers({
-  form: formReducer,
-  filterCriteria: filterCriteriaReducer,
-  artists: ArtistsReducer,
-  errors: ErrorReducer,
-  selection: SelectionReducer
+    form: formReducer,
+    filterCriteria: filterCriteriaReducer,
+    artists: ArtistsReducer,
+    errors: ErrorReducer,
+    selection: SelectionReducer
 });

@@ -6,14 +6,14 @@ import {
 } from '../actions/types';
 
 export default (state = [], action) => {
-  switch (action.type) {
+    switch (action.type) {
     case SELECT_ARTIST:
-      return [...state, action.payload];
+        return [...state, action.payload];
     case DESELECT_ARTIST:
-      return _.without(state, action.payload);
+        return _.without(state, action.payload);
     case RESET_SELECTION:
-      return [];
+        return [];
     default:
-      return state;
-  }
+        return state;
+    }
 };
